@@ -15,21 +15,24 @@ RSpec.describe 'Linked List' do
 
     it 'should be able to append' do
       list = LinkedList.new
-      expect(list.append("doop")).to eq("doop")
+      expect(list.append("doop")).to eq(list.head.data)
     end
 
     it 'next node should be nil' do
       list = LinkedList.new
+      list.append("doop")
       expect(list.head.next_node).to be_nil
     end
 
     it 'should have a count of 1' do
       list = LinkedList.new
+      list.append("doop")
       expect(list.count).to eq(1)
     end
 
     it 'should be able to be converted to a string' do
       list = LinkedList.new
+      list.append("doop")
       expect(list.to_string).to eq("doop")
     end
   end
