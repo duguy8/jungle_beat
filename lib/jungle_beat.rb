@@ -5,6 +5,11 @@ class JungleBeat
     @list = LinkedList.new
   end
 
+  def play
+    jam = @list.to_string
+    `say -r 500 -v Boing #{jam}`
+  end
+
   def append(data)
     new = data.split
     new.each do |word|
