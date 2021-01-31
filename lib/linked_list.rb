@@ -5,6 +5,16 @@ class LinkedList
     @head = head
   end
 
+  def prepend(data)
+    if @head.nil?
+      @head = Node.new(data)
+    else
+      copy = @head
+      @head = Node.new(data)
+      @head.add_next_node(copy)
+    end
+  end
+
   def append(data)
     if head.nil?
       @head = Node.new(data)
@@ -26,7 +36,17 @@ class LinkedList
   end
 
   def to_string
-    @head.data.concat(" #{@head.next_data}") unless @head.empty?
-    @head.data
+    expected = ""
+    current = @head
+    if @head.next_node.is_a?(Node)
+      loop do
+        expected += "#{current.data} "
+        break if current.next_node.nil?
+        current = current.next_node
+      end
+      expected.chop
+    else
+      @head.data
+    end
   end
 end
