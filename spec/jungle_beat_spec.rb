@@ -20,5 +20,13 @@ RSpec.describe 'Jungle Beat' do
       expect(expected2).to eq("woo hoo shu")
       expect(jb.count).to eq(6)
     end
+    it 'can play sounds' do
+      jb = JungleBeat.new
+      expected = jb.append("doot doot doot doot")
+      expect(expected).to eq("doot doot doot doot")
+      expect(jb.count).to eq(4)
+      expect(jb.list.count).to eq(4)
+      jb.play
+    end
   end
 end
