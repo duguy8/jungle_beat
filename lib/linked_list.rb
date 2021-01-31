@@ -5,6 +5,44 @@ class LinkedList
     @head = nil
   end
 
+  def pop
+    new = position(head, count - 2)
+    old = new.next_node
+    new.add_next_node(nil)
+    p "#{old.data}"
+    old
+  end
+
+  def includes?(data)
+    find_by_name(head,data)
+  end
+
+  def find_by_name(node, data)
+    return true if node.data == data
+    return false if node.tail?
+    find_by_name(node.next_node, data)
+  end
+
+  def head_data(found = head)
+    found.data
+  end
+
+  def concat(data, node)
+    "#{data}".concat(" #{node.data}")
+  end
+
+  def concat_data(node, data, stop = nil, counter = 1)
+    return concat(data, node) if node.tail? || stop == counter
+    concat_data(node.next_node, concat(data, node), stop, counter += 1)
+  end
+
+  def find(index, elements)
+    found = position(head, index)
+    data = head_data(found)
+    return data if elements == 1
+    concat_data(found.next_node, data, elements -= 1)
+  end
+
   def new_node(data)
     Node.new(data)
   end
