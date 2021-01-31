@@ -12,5 +12,11 @@ RSpec.describe 'Linked List' do
       link.append("doot")
       expect(link.empty?).to be false
     end
+    it 'can create a new node' do
+      link = LinkedList.new
+      expected = link.new_node("doot")
+      expect(expected).to be_instance_of Node
+      expect("doot").to eq(expected.data)
+    end
   end
 end

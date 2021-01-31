@@ -15,7 +15,8 @@ RSpec.describe 'Linked List' do
 
     it 'should be able to append' do
       list = LinkedList.new
-      expect(list.append("doop")).to eq(list.head.data)
+      expected = list.append("doop")
+      expect(expected.data).to eq(list.head.data)
     end
 
     it 'next node should be nil' do

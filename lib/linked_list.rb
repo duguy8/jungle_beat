@@ -5,6 +5,10 @@ class LinkedList
     @head = nil
   end
 
+  def new_node(data)
+    Node.new(data)
+  end
+
   def empty?
     head.nil?
   end
@@ -15,40 +19,26 @@ class LinkedList
   end
 
   def insert(index, data)
-    # require "pry"; binding.pry
-    node = Node.new(data)
-    prior_node = node_at(@head, index)
-    next_node = node_at(@head, index)
+    node = new_node(data)
+    prior_node = position(head, index - 1)
+    next_node = position(head, index)
     prior_node.add_next_node(node)
     node.add_next_node(next_node)
     return node
-
-    # current = @head
-    # (index - 1).times do |node|
-    #   current = current.next_node
-    # end
-    #
-    # shifted = current.next_node
-    # current.add_next_node(Node.new(data))
   end
 
   def prepend(data)
-    if @head.nil?
-      @head = Node.new(data)
-    else
-      copy = @head
-      @head = Node.new(data)
-      @head.add_next_node(copy)
-    end
+    node = new_node(data)
+    node.add_next_node(@head)
+    @head = node
   end
 
   def append(data)
-    if head.nil?
-      @head = Node.new(data)
+    if empty?
+      @head = new_node(data)
     else
-      @head.add_next_node(Node.new(data))
+      last_node(@head).add_next_node(new_node(data))
     end
-    data
   end
 
   def count
@@ -81,10 +71,8 @@ class LinkedList
     end
   end
 
-  private
-
-  def node_at(node, index, counter=0)
+  def position(node, index, counter=0)
     return node if index == counter
-    node_at(node.next_node,index,counter +=1)
+    position(node.next_node, index, counter += 1)
   end
 end
