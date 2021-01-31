@@ -5,6 +5,16 @@ class LinkedList
     @head = nil
   end
 
+  def includes?(data)
+    find_by_name(head,data)
+  end
+
+  def find_by_name(node, data)
+    return true if node.data == data
+    return false if node.tail?
+    find_by_name(node.next_node, data)
+  end
+
   def head_data(found = head)
     found.data
   end

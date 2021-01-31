@@ -17,5 +17,13 @@ RSpec.describe 'Linked List' do
       expected3 = "woo shi shu"
       expect(list.find(1, 3)).to eq(expected3)
     end
+    it 'can see if an element is included' do
+      list = LinkedList.new
+      list.append("deep")
+      list.append("woo")
+      expect(list.includes?("deep")).to be true
+      expect(list.includes?("dep")).to be false
+    end
+    
   end
 end
