@@ -5,6 +5,26 @@ class LinkedList
     @head = nil
   end
 
+  def head_data(found = head)
+    found.data
+  end
+
+  def concat(data, node)
+    "#{data}".concat(" #{node.data}")
+  end
+
+  def concat_data(node, data, stop = nil, counter = 1)
+    return concat(data, node) if node.tail? || stop == counter
+    concat_data(node.next_node, concat(data, node), stop, counter += 1)
+  end
+
+  def find(index, elements)
+    found = position(head, index)
+    data = head_data(found)
+    return data if elements == 1
+    concat_data(found.next_node, data, elements -= 1)
+  end
+
   def new_node(data)
     Node.new(data)
   end
