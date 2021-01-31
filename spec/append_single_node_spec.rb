@@ -47,5 +47,13 @@ RSpec.describe 'Linked List' do
       expect(list.count).to eq(2)
       expect(list.to_string).to eq("doop deep")
     end
+
+    it 'last node is the tail' do
+      list = LinkedList.new
+      list.append("doot")
+      expected = list.last_node(list.head)
+      expect(expected).to be_instance_of Node
+      expect(expected.data).to eq("doot")
+    end
   end
 end
