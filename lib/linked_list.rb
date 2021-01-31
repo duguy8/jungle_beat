@@ -5,6 +5,14 @@ class LinkedList
     @head = nil
   end
 
+  def pop
+    new = position(head, count - 2)
+    old = new.next_node
+    new.add_next_node(nil)
+    p "#{old.data}"
+    old
+  end
+
   def includes?(data)
     find_by_name(head,data)
   end
