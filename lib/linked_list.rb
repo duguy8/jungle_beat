@@ -2,31 +2,77 @@ class LinkedList
   attr_reader :head
 
   def initialize
-    @head = head
+    @head = nil
+  end
+
+  def new_node(data)
+    Node.new(data)
+  end
+
+  def empty?
+    head.nil?
+  end
+
+  def last_node(node)
+    return node if node.tail?
+    last_node(node.next_node)
+  end
+
+  def insert(index, data)
+    node = new_node(data)
+    prior_node = position(head, index - 1)
+    next_node = position(head, index)
+    prior_node.add_next_node(node)
+    node.add_next_node(next_node)
+    return node
+  end
+
+  def prepend(data)
+    node = new_node(data)
+    node.add_next_node(@head)
+    @head = node
   end
 
   def append(data)
-    if head.nil?
-      @head = Node.new(data)
+    if empty?
+      @head = new_node(data)
     else
-      @head.add_next_node(Node.new(data))
+      last_node(@head).add_next_node(new_node(data))
     end
-    data
   end
 
   def count
-    case
-    when @head.is_a?(Node) &&
-      @head.empty?
+    counter = 0
+    current = @head
+    if @head.next_node.is_a?(Node)
+      loop do
+        counter += 1
+        break if current.next_node.nil?
+        current = current.next_node
+      end
+      counter
+    else
       1
-    when @head.is_a?(Node) &&
-      @head.next_node.is_a?(Node)
-      2
     end
   end
 
   def to_string
-    @head.data.concat(" #{@head.next_data}") unless @head.empty?
-    @head.data
+    expected = ""
+    current = @head
+    if @head.next_node.is_a?(Node)
+      loop do
+        expected += "#{current.data} "
+        break if current.next_node.nil?
+        current = current.next_node
+      end
+      expected.chop
+    else
+      @head.data
+    end
+  end
+
+  def position(node, index, counter=0)
+    return node if index == counter
+    position(node.next_node, index, counter += 1)
   end
 end

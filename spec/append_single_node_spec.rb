@@ -15,7 +15,8 @@ RSpec.describe 'Linked List' do
 
     it 'should be able to append' do
       list = LinkedList.new
-      expect(list.append("doop")).to eq(list.head.data)
+      expected = list.append("doop")
+      expect(expected.data).to eq(list.head.data)
     end
 
     it 'next node should be nil' do
@@ -46,6 +47,14 @@ RSpec.describe 'Linked List' do
       expect(list.head.next_node.data).to eq("deep")
       expect(list.count).to eq(2)
       expect(list.to_string).to eq("doop deep")
+    end
+
+    it 'last node is the tail' do
+      list = LinkedList.new
+      list.append("doot")
+      expected = list.last_node(list.head)
+      expect(expected).to be_instance_of Node
+      expect(expected.data).to eq("doot")
     end
   end
 end
