@@ -25,13 +25,17 @@ class LinkedList
   end
 
   def count
-    case
-    when @head.is_a?(Node) &&
-      @head.empty?
+    counter = 0
+    current = @head
+    if @head.next_node.is_a?(Node)
+      loop do
+        counter += 1
+        break if current.next_node.nil?
+        current = current.next_node
+      end
+      counter
+    else
       1
-    when @head.is_a?(Node) &&
-      @head.next_node.is_a?(Node)
-      2
     end
   end
 
